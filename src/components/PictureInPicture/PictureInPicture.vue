@@ -24,28 +24,50 @@ let ctx = null;
 // const imageOriginalWith = 1875;
 // const imageOriginalHeight = 3015;
 
-const ImgSrcs = [P1, P2];
-const images = [];
+const imageDatas = [
+  {
+    src: P1,
+    width: "1875",
+    height: "3015",
+    innerImg: {
+      width: "152",
+      height: "244",
+      left: "370",
+      top: "1068",
+    },
+  },
+  {
+    src: P2,
+    width: "1875",
+    height: "3015",
+    innerImg: {
+      width: "556",
+      height: "894",
+      left: "1251",
+      top: "1050",
+    },
+  },
+];
 
 // let radio = 556 / 1875;
-let radio = 1;
+let radio = 0.9;
 
-let timer = null;
+// let timer = null;
 
 const loadImages = async () => {
   const promises = [];
-  for (const src of ImgSrcs) {
+  for (const imageData of imageDatas) {
     promises.push(
       new Promise((resolve, reject) => {
         const img = new Image();
-        img.src = src;
+        img.src = imageData.src;
         img.onload = () => {
           resolve();
         };
         img.onerror = () => {
           reject();
         };
-        images.push(img);
+        imageData.img = img;
       })
     );
   }
@@ -68,15 +90,15 @@ const start = () => {
 };
 
 const step = () => {
-  // 缩小后停止;
-  if (radio < 556 / 1875) {
-    console.log(72);
-    window.cancelAnimationFrame(timer);
-  } else {
-    draw();
-    timer = window.requestAnimationFrame(step);
-  }
-  // draw();
+  // // 缩小后停止;
+  // if (radio < 556 / 1875) {
+  //   console.log(72);
+  //   window.cancelAnimationFrame(timer);
+  // } else {
+  //   draw();
+  //   timer = window.requestAnimationFrame(step);
+  // }
+  draw();
 };
 
 const canvasWidth = document.documentElement.clientWidth;
@@ -87,17 +109,71 @@ const canvasHeight = canvasWidth / 0.6218;
 const draw = () => {
   console.log("drawing");
 
-  // 由大到小
+  const currentImage = imageDatas[0];
+
+  const nextImage = imageDatas[1];
+
+  // {
+  //   src: P1,
+  //   width: "1875",
+  //   height: "3015",
+  //   innerImg: {
+  //     width: "152",
+  //     height: "244",
+  //     left: "370",
+  //     top: "1068",
+  //   },
+  // },
+
+  // // 重复计算
+  // const temp1 =
+  //   (nextImage.width - nextImage.innerImg.width / radio) /
+  //   (nextImage.width - nextImage.innerImg.width);
+
+  // // 小窗口放大到整个图片
+  // ctx.drawImage(
+  //   nextImage.img,
+  //   nextImage.innerImg.left * temp1, // 最初是innerLeft，最后是0 AN/AT = AE/AI=AQ/AR
+  //   nextImage.innerImg.top * temp1, // EN/IT= AE/AI=AQ/AR
+  //   nextImage.innerImg.width / radio, //   开始是innerWidth，慢慢变大到imageOriginalWith
+  //   nextImage.innerImg.height / radio,
+  //   0,
+  //   0,
+  //   canvasWidth,
+  //   canvasHeight
+  // );
+
+  // 由整个图片缩小到下一个图片的小窗口
+  // ctx.drawImage(
+  //   currentImage.img,
+  //   0,
+  //   0,
+  //   currentImage.width,
+  //   currentImage.height,
+  //   nextImage.innerImg.left -
+  //     (nextImage.innerImg.left * (nextImage.width - nextImage.width * radio)) /
+  //       (nextImage.width - nextImage.innerImg.width),
+  //   nextImage.innerImg.height -
+  //     nextImage.innerImg.height *
+  //       ((nextImage.width - nextImage.width * radio) /
+  //         (nextImage.width - nextImage.innerImg.width)),
+  //   canvasWidth,
+  //   canvasHeight
+  // );
+
   ctx.drawImage(
-    images[1],
-    1251 * ((1875 - 556 / radio) / (1875 - 556)), // 最初是innerLeft，最后是0 AN/AT = AE/AI=AQ/AR
-    1050 * ((1875 - 556 / radio) / (1875 - 556)), // EN/IT= AE/AI=AQ/AR
-    556 / radio, //   开始是innerWidth，慢慢变大到imageOriginalWith
-    894 / radio,
+    currentImage.img,
     0,
     0,
-    canvasWidth,
-    canvasHeight
+    currentImage.width,
+    currentImage.height,
+    (nextImage.innerImg.left * (nextImage.width - nextImage.width * radio)) /
+      (nextImage.width - nextImage.innerImg.width),
+    nextImage.innerImg.top *
+      ((nextImage.width - nextImage.width * radio) /
+        (nextImage.width - nextImage.innerImg.width)),
+    canvasWidth * radio,
+    canvasHeight * radio
   );
 
   // width: '556',
