@@ -50,9 +50,9 @@ const imageDatas = [
 ];
 
 // let radio = 556 / 1875;
-let radio = 0.9;
+let radio = 1;
 
-// let timer = null;
+let timer = null;
 
 const loadImages = async () => {
   const promises = [];
@@ -90,15 +90,15 @@ const start = () => {
 };
 
 const step = () => {
-  // // 缩小后停止;
-  // if (radio < 556 / 1875) {
-  //   console.log(72);
-  //   window.cancelAnimationFrame(timer);
-  // } else {
-  //   draw();
-  //   timer = window.requestAnimationFrame(step);
-  // }
-  draw();
+  // 缩小后停止;
+  if (radio < 556 / 1875) {
+    console.log(72);
+    window.cancelAnimationFrame(timer);
+  } else {
+    draw();
+    timer = window.requestAnimationFrame(step);
+  }
+  // draw();
 };
 
 const canvasWidth = document.documentElement.clientWidth;
@@ -125,56 +125,70 @@ const draw = () => {
   //   },
   // },
 
-  // // 重复计算
-  // const temp1 =
-  //   (nextImage.width - nextImage.innerImg.width / radio) /
-  //   (nextImage.width - nextImage.innerImg.width);
+  // 重复计算
+  const temp1 =
+    (nextImage.width - nextImage.innerImg.width / radio) /
+    (nextImage.width - nextImage.innerImg.width);
 
-  // // 小窗口放大到整个图片
-  // ctx.drawImage(
-  //   nextImage.img,
-  //   nextImage.innerImg.left * temp1, // 最初是innerLeft，最后是0 AN/AT = AE/AI=AQ/AR
-  //   nextImage.innerImg.top * temp1, // EN/IT= AE/AI=AQ/AR
-  //   nextImage.innerImg.width / radio, //   开始是innerWidth，慢慢变大到imageOriginalWith
-  //   nextImage.innerImg.height / radio,
-  //   0,
-  //   0,
-  //   canvasWidth,
-  //   canvasHeight
-  // );
+  // 小窗口放大到整个图片
+  ctx.drawImage(
+    nextImage.img,
+    nextImage.innerImg.left * temp1, // 最初是innerLeft，最后是0 AN/AT = AE/AI=AQ/AR
+    nextImage.innerImg.top * temp1, // EN/IT= AE/AI=AQ/AR
+    nextImage.innerImg.width / radio, //   开始是innerWidth，慢慢变大到imageOriginalWith
+    nextImage.innerImg.height / radio,
+    0,
+    0,
+    canvasWidth,
+    canvasHeight
+  );
 
   // 由整个图片缩小到下一个图片的小窗口
-  // ctx.drawImage(
-  //   currentImage.img,
-  //   0,
-  //   0,
-  //   currentImage.width,
-  //   currentImage.height,
-  //   nextImage.innerImg.left -
-  //     (nextImage.innerImg.left * (nextImage.width - nextImage.width * radio)) /
-  //       (nextImage.width - nextImage.innerImg.width),
-  //   nextImage.innerImg.height -
-  //     nextImage.innerImg.height *
-  //       ((nextImage.width - nextImage.width * radio) /
-  //         (nextImage.width - nextImage.innerImg.width)),
-  //   canvasWidth,
-  //   canvasHeight
-  // );
 
+  const asau =
+    (currentImage.width - currentImage.width * radio) /
+    (currentImage.width - nextImage.innerImg.width);
   ctx.drawImage(
     currentImage.img,
     0,
     0,
     currentImage.width,
     currentImage.height,
-    (nextImage.innerImg.left * (nextImage.width - nextImage.width * radio)) /
-      (nextImage.width - nextImage.innerImg.width),
-    nextImage.innerImg.top *
-      ((nextImage.width - nextImage.width * radio) /
-        (nextImage.width - nextImage.innerImg.width)),
+    (nextImage.innerImg.left * asau * canvasWidth) / currentImage.width,
+    (nextImage.innerImg.top * asau * canvasHeight) / currentImage.height,
     canvasWidth * radio,
     canvasHeight * radio
   );
+
+  // console.log(nextImage.innerImg.left * asau);
+  // console.log(nextImage.innerImg.top * asau);
+
+  // console.log(
+  //   nextImage.innerImg.left *
+  //     ((currentImage.width - currentImage.width * radio) /
+  //       (currentImage.width - nextImage.innerImg.width))
+  // );
+
+  // ctx.drawImage(
+  //   currentImage.img,
+  //   0,
+  //   0,
+  //   currentImage.width,
+  //   currentImage.height,
+  //   (nextImage.innerImg.left * (nextImage.width - nextImage.width * radio)) /
+  //     (nextImage.width - nextImage.innerImg.width),
+  //   nextImage.innerImg.top *
+  //     ((nextImage.width - nextImage.width * radio) /
+  //       (nextImage.width - nextImage.innerImg.width)),
+  //   canvasWidth * radio,
+  //   canvasHeight * radio
+  // );
+
+  // console.log(
+  //   nextImage.innerImg.left -
+  //     (nextImage.innerImg.left * (nextImage.width - nextImage.width * radio)) /
+  //       (nextImage.width - nextImage.innerImg.width)
+  // );
 
   // width: '556',
   //       height: '894',
