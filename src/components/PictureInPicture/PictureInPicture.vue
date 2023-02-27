@@ -113,24 +113,12 @@ const draw = () => {
 
   const nextImage = imageDatas[1];
 
-  // {
-  //   src: P1,
-  //   width: "1875",
-  //   height: "3015",
-  //   innerImg: {
-  //     width: "152",
-  //     height: "244",
-  //     left: "370",
-  //     top: "1068",
-  //   },
-  // },
-
   // 重复计算
   const temp1 =
     (nextImage.width - nextImage.innerImg.width / radio) /
     (nextImage.width - nextImage.innerImg.width);
 
-  // 小窗口放大到整个图片
+  // 由局部小窗口在整个屏幕，缩小到整个图片都在屏幕
   ctx.drawImage(
     nextImage.img,
     nextImage.innerImg.left * temp1, // 最初是innerLeft，最后是0 AN/AT = AE/AI=AQ/AR
@@ -143,85 +131,21 @@ const draw = () => {
     canvasHeight
   );
 
-  // 由整个图片缩小到下一个图片的小窗口
-
+  // 由整个图片都在屏幕，缩小到下一个图片的小窗口
   const asau =
     (currentImage.width - currentImage.width * radio) /
-    (currentImage.width - nextImage.innerImg.width);
+    (currentImage.width - nextImage.innerImg.width); // AS/AU
   ctx.drawImage(
     currentImage.img,
     0,
     0,
     currentImage.width,
     currentImage.height,
-    (nextImage.innerImg.left * asau * canvasWidth) / currentImage.width,
+    (nextImage.innerImg.left * asau * canvasWidth) / currentImage.width, // 这里需要换算成实际的canvas的大小
     (nextImage.innerImg.top * asau * canvasHeight) / currentImage.height,
     canvasWidth * radio,
     canvasHeight * radio
   );
-
-  // console.log(nextImage.innerImg.left * asau);
-  // console.log(nextImage.innerImg.top * asau);
-
-  // console.log(
-  //   nextImage.innerImg.left *
-  //     ((currentImage.width - currentImage.width * radio) /
-  //       (currentImage.width - nextImage.innerImg.width))
-  // );
-
-  // ctx.drawImage(
-  //   currentImage.img,
-  //   0,
-  //   0,
-  //   currentImage.width,
-  //   currentImage.height,
-  //   (nextImage.innerImg.left * (nextImage.width - nextImage.width * radio)) /
-  //     (nextImage.width - nextImage.innerImg.width),
-  //   nextImage.innerImg.top *
-  //     ((nextImage.width - nextImage.width * radio) /
-  //       (nextImage.width - nextImage.innerImg.width)),
-  //   canvasWidth * radio,
-  //   canvasHeight * radio
-  // );
-
-  // console.log(
-  //   nextImage.innerImg.left -
-  //     (nextImage.innerImg.left * (nextImage.width - nextImage.width * radio)) /
-  //       (nextImage.width - nextImage.innerImg.width)
-  // );
-
-  // width: '556',
-  //       height: '894',
-  //       left: '1251',
-  //       top: '1050',
-
-  // const imageOriginalWith = 1875;
-  // const imageOriginalHeight = 3015;
-
-  // ctx.drawImage(
-  //   images[1],
-  //   0,
-  //   0,
-  //   1875,
-  //   3015,
-  //   0,
-  //   0,
-  //   canvasWidth,
-  //   canvasHeight
-  // );
-
-  // // 由大到小
-  // ctx.drawImage(
-  //   images[0],
-  //   0,
-  //   0,
-  //   imageOriginalWith,
-  //   imageOriginalHeight,
-  //   0,
-  //   0,
-  //   canvasWidth * radio,
-  //   canvasHeight * radio
-  // );
 
   radio = radio * 0.993;
 };
