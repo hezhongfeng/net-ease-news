@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <PictureInPicture :images-data="imagesData" :factor="0.99" />
+    <PictureInPicture :images-data="imagesData" :factor="0.992" />
   </div>
 </template>
 
