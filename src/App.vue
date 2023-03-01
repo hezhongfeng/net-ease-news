@@ -1,8 +1,7 @@
 <template>
   <div class="app">
     <PictureInPicture :images-data="imagesData" :factor="0.992" :play="play" />
-    <div>{{ pressed }}</div>
-    <div class="start" ref="touchRef" @touchend="onTouthend"></div>
+    <div class="start" :class="{ playing: play }" ref="touchRef"></div>
   </div>
 </template>
 
@@ -69,15 +68,15 @@ const imagesData = [
   },
 ];
 
-const onTouthend = () => {
-  console.log("结束按");
-};
-
 const touchRef = ref(null);
 
 const { pressed } = useMousePressed({ target: touchRef });
 
-const play = computed(() => pressed);
+const play = computed(() => {
+  return pressed.value;
+});
+
+console.log(play);
 </script>
 
 <style lang="scss">
@@ -86,14 +85,19 @@ const play = computed(() => pressed);
   .start {
     position: absolute;
     left: 45vw;
-    bottom: 20vw;
+    bottom: 10vw;
     z-index: 2;
     width: 15vw;
     height: 14vw;
+    user-select: none;
     background: url(./assets/images/sprite_v2.png) no-repeat;
     background-position: -41.4vw -79.45vw;
     background-size: 770%;
     animation: start 0.4s steps(1) infinite;
+  }
+  .playing {
+    background-position: -41.4vw -92.8vw;
+    animation: none;
   }
   @keyframes start {
     0% {

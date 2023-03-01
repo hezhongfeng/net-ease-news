@@ -1,20 +1,20 @@
 <template>
   <div class="picture-in-picture">
-    <canvas ref="canvas" :width="canvasWidth" :height="canvasHeight">
-      画中画
-    </canvas>
+    <canvas ref="canvas" :width="canvasWidth" :height="canvasHeight"> </canvas>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, watch } from "vue";
 
-// eslint-disable-next-line vue/no-setup-props-destructure
-const { imagesData, factor, play } = defineProps([
-  "imagesData",
-  "factor",
-  "play",
-]);
+// // eslint-disable-next-line vue/no-setup-props-destructure
+// const { imagesData, factor, play } = defineProps([
+//   "imagesData",
+//   "factor",
+//   "play",
+// ]);
+
+const props = defineProps(["imagesData", "factor", "play"]);
 
 const canvas = ref();
 
@@ -32,7 +32,7 @@ let requestId = null;
 // 加载所有图片
 const loadImages = async () => {
   const promises = [];
-  for (const item of imagesData) {
+  for (const item of props.imagesData) {
     promises.push(
       new Promise((resolve, reject) => {
         const img = new Image();
@@ -64,18 +64,21 @@ let nextImage = null;
 
 const start = () => {
   // 起始的两张图片
-  currentImage = imagesData[playIndex];
-  nextImage = imagesData[playIndex + 1];
-  step();
+  currentImage = props.imagesData[playIndex];
+  nextImage = props.imagesData[playIndex + 1];
+  drawCover();
 };
 
+console.log(props.play);
+
 watch(
-  play,
+  () => props.play,
   (newPlay) => {
-    console.log(newPlay);
-    // if (newPlay) {
-    //   step();
-    // }
+    if (newPlay) {
+      step();
+    } else {
+      stop();
+    }
   },
   {
     immediate: false,
@@ -85,11 +88,11 @@ watch(
 // 切换下一张
 const nextStep = () => {
   playIndex += 1;
-  if (playIndex > imagesData.length - 2) {
+  if (playIndex > props.imagesData.length - 2) {
     stop();
   } else {
-    currentImage = imagesData[playIndex];
-    nextImage = imagesData[playIndex + 1];
+    currentImage = props.imagesData[playIndex];
+    nextImage = props.imagesData[playIndex + 1];
     reduce = 1;
     requestId = window.requestAnimationFrame(step);
   }
@@ -145,10 +148,25 @@ const draw = () => {
     canvasWidth * reduce,
     canvasHeight * reduce
   );
-  console.log(play.value);
-  if (play.value) {
-    reduce = reduce * factor;
-  }
+  reduce = reduce * props.factor;
+};
+
+const drawCover = () => {
+  const asau =
+    (currentImage.width - currentImage.width * reduce) /
+    (currentImage.width -
+      (nextImage.innerImg.width * currentImage.width) / nextImage.width); // AS/AU
+  ctx.drawImage(
+    currentImage.img,
+    0,
+    0,
+    currentImage.width,
+    currentImage.height,
+    (nextImage.innerImg.left * asau * canvasWidth) / nextImage.width, // 这里需要换算成实际的canvas的大小
+    (nextImage.innerImg.top * asau * canvasHeight) / nextImage.height,
+    canvasWidth * reduce,
+    canvasHeight * reduce
+  );
 };
 
 onMounted(async () => {
