@@ -1,10 +1,12 @@
 <template>
   <div class="app">
-    <PictureInPicture :images-data="imagesData" :factor="0.992" />
+    <PictureInPicture :images-data="imagesData" :factor="0.992" :play="play" />
+    <div class="start" @touchstart="onTouchstart" @touchend="onTouthend"></div>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { PictureInPicture } from "./components/PictureInPicture";
 
 import Cover from "./assets/images/cover_v2.jpg";
@@ -64,10 +66,43 @@ const imagesData = [
     },
   },
 ];
+
+const play = ref(true);
+
+const onTouchstart = () => {
+  console.log("开始按");
+};
+
+const onTouthend = () => {
+  console.log("结束按");
+};
 </script>
 
 <style lang="scss">
 .app {
   min-height: 100vh;
+  .start {
+    position: absolute;
+    left: 45vw;
+    bottom: 20vw;
+    z-index: 2;
+    width: 15vw;
+    height: 14vw;
+    background: url(./assets/images/sprite_v2.png) no-repeat;
+    background-position: -41.4vw -79.45vw;
+    background-size: 770%;
+    animation: start 0.4s steps(1) infinite;
+  }
+  @keyframes start {
+    0% {
+      background-position: -41.4vw -79.45vw;
+    }
+    50% {
+      background-position: -41.4vw -92.8vw;
+    }
+    100% {
+      background-position: -41.4vw -79.45vw;
+    }
+  }
 }
 </style>

@@ -7,10 +7,16 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, toRef } from "vue";
 
 // eslint-disable-next-line vue/no-setup-props-destructure
-const { imagesData, factor } = defineProps(["imagesData", "factor"]);
+const { imagesData, factor, play } = defineProps([
+  "imagesData",
+  "factor",
+  "play",
+]);
+
+console.log(play);
 
 const canvas = ref();
 
@@ -59,11 +65,24 @@ let currentImage = null;
 let nextImage = null;
 
 const start = () => {
-  // 起始的两张图片
-  currentImage = imagesData[playIndex];
-  nextImage = imagesData[playIndex + 1];
-  step();
+  // // 起始的两张图片
+  // currentImage = imagesData[playIndex];
+  // nextImage = imagesData[playIndex + 1];
+  // step();
 };
+
+watch(
+  toRef(play),
+  (newPlay) => {
+    console.log(newPlay);
+    // if (newPlay) {
+    //   step();
+    // }
+  },
+  {
+    immediate: false,
+  }
+);
 
 // 切换下一张
 const nextStep = () => {
