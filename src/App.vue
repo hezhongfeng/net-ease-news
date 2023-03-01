@@ -1,13 +1,15 @@
 <template>
   <div class="app">
     <PictureInPicture :images-data="imagesData" :factor="0.992" :play="play" />
-    <div class="start" @touchstart="onTouchstart" @touchend="onTouthend"></div>
+    <div>{{ pressed }}</div>
+    <div class="start" ref="touchRef" @touchend="onTouthend"></div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { PictureInPicture } from "./components/PictureInPicture";
+import { useMousePressed } from "@vueuse/core";
 
 import Cover from "./assets/images/cover_v2.jpg";
 import P1 from "./assets/images/p1.jpg";
@@ -67,15 +69,15 @@ const imagesData = [
   },
 ];
 
-const play = ref(true);
-
-const onTouchstart = () => {
-  console.log("开始按");
-};
-
 const onTouthend = () => {
   console.log("结束按");
 };
+
+const touchRef = ref(null);
+
+const { pressed } = useMousePressed({ target: touchRef });
+
+const play = computed(() => pressed);
 </script>
 
 <style lang="scss">

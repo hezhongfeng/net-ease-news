@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, toRef } from "vue";
+import { ref, onMounted, watch } from "vue";
 
 // eslint-disable-next-line vue/no-setup-props-destructure
 const { imagesData, factor, play } = defineProps([
@@ -15,8 +15,6 @@ const { imagesData, factor, play } = defineProps([
   "factor",
   "play",
 ]);
-
-console.log(play);
 
 const canvas = ref();
 
@@ -65,14 +63,14 @@ let currentImage = null;
 let nextImage = null;
 
 const start = () => {
-  // // 起始的两张图片
-  // currentImage = imagesData[playIndex];
-  // nextImage = imagesData[playIndex + 1];
-  // step();
+  // 起始的两张图片
+  currentImage = imagesData[playIndex];
+  nextImage = imagesData[playIndex + 1];
+  step();
 };
 
 watch(
-  toRef(play),
+  play,
   (newPlay) => {
     console.log(newPlay);
     // if (newPlay) {
@@ -147,8 +145,10 @@ const draw = () => {
     canvasWidth * reduce,
     canvasHeight * reduce
   );
-
-  reduce = reduce * factor;
+  console.log(play.value);
+  if (play.value) {
+    reduce = reduce * factor;
+  }
 };
 
 onMounted(async () => {
