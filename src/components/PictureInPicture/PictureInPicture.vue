@@ -23,7 +23,7 @@ let playIndex = 0;
 
 let ctx = null;
 
-// 最初的变化
+// 缩小系数，最初是1
 let reduce = 1;
 
 // requestAnimationFrame的请求ID，可以用来暂停和取消
@@ -114,26 +114,26 @@ const step = () => {
 
 const draw = () => {
   console.log("drawing");
-  // 重复计算
-  const temp1 =
-    (nextImage.width - nextImage.innerImg.width / reduce) /
-    (nextImage.width - nextImage.innerImg.width);
 
-  // 由局部小窗口在整个屏幕，缩小到整个图片都在屏幕
+  // 下一张图片
+  const nextASAU =
+    (nextImage.width - nextImage.innerImg.width / reduce) /
+    (nextImage.width - nextImage.innerImg.width); // AS/AU
+
   ctx.drawImage(
     nextImage.img,
-    nextImage.innerImg.left * temp1, // 最初是innerLeft，最后是0 AN/AT = AE/AI=AQ/AR
-    nextImage.innerImg.top * temp1, // EN/IT= AE/AI=AQ/AR
-    nextImage.innerImg.width / reduce, //   开始是innerWidth，慢慢变大到imageOriginalWith
-    nextImage.innerImg.height / reduce,
+    nextImage.innerImg.left * nextASAU, // AT*AS/AU
+    nextImage.innerImg.top * nextASAU, // TH*AS/AU
+    nextImage.innerImg.width / reduce, // EF
+    nextImage.innerImg.height / reduce, // RH
     0,
     0,
     canvasWidth,
     canvasHeight
   );
 
-  // 由整个图片都在屏幕，缩小到下一个图片的小窗口
-  const asau =
+  // 当前图片，需要后画
+  const currentASAU =
     (currentImage.width - currentImage.width * reduce) /
     (currentImage.width -
       (nextImage.innerImg.width * currentImage.width) / nextImage.width); // AS/AU
@@ -143,8 +143,8 @@ const draw = () => {
     0,
     currentImage.width,
     currentImage.height,
-    (nextImage.innerImg.left * asau * canvasWidth) / nextImage.width, // 这里需要换算成实际的canvas的大小
-    (nextImage.innerImg.top * asau * canvasHeight) / nextImage.height,
+    (nextImage.innerImg.left * currentASAU * canvasWidth) / nextImage.width, // 这里需要换算成实际的canvas的大小
+    (nextImage.innerImg.top * currentASAU * canvasHeight) / nextImage.height,
     canvasWidth * reduce,
     canvasHeight * reduce
   );
@@ -152,7 +152,8 @@ const draw = () => {
 };
 
 const drawCover = () => {
-  const asau =
+  // 当前图片
+  const currentASAU =
     (currentImage.width - currentImage.width * reduce) /
     (currentImage.width -
       (nextImage.innerImg.width * currentImage.width) / nextImage.width); // AS/AU
@@ -162,8 +163,8 @@ const drawCover = () => {
     0,
     currentImage.width,
     currentImage.height,
-    (nextImage.innerImg.left * asau * canvasWidth) / nextImage.width, // 这里需要换算成实际的canvas的大小
-    (nextImage.innerImg.top * asau * canvasHeight) / nextImage.height,
+    (nextImage.innerImg.left * currentASAU * canvasWidth) / nextImage.width, // 这里需要换算成实际的canvas的大小
+    (nextImage.innerImg.top * currentASAU * canvasHeight) / nextImage.height,
     canvasWidth * reduce,
     canvasHeight * reduce
   );

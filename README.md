@@ -83,7 +83,7 @@
 
 ![image](https://cdn.jsdelivr.net/gh/hezhongfeng/images/202302271546038.svg)
 
-观察上图，我们假设 ABCD 是手机屏幕
+观察上图，我们假设 ABCD 是手机屏幕，也就是当前图片最初的大小和位置
 
 EFGH 当前图片的中间态
 
@@ -104,25 +104,32 @@ AR/AT=AE/AH=AS/AU;
 AU = AB-HI
 ```
 
+```js
+AB：当前图片的宽度
+SB: 中间态宽度，即AB*reduce
+HI: 下一张图片的PIP的宽度
+AT: 下一张图片的PIP的left
+```
+
 上面是伪代码，详细的可以看看源码
 
 ### 下一张图片
 
-还是一样的图这里假设：ABCD 是手机的屏幕
+观察上面的动图，最初 nextImage（下一张图片）的 PIP 占满了画布，然后画布慢慢扩大，最后是整个 nextImage 占满了画布
 
-EFGH 是小图的中间态
+还是一样的图这里假设：ABCD 是 nextImage
 
-HIJK 是小图的最终态
+EFGH 看做画布的中间态（扩大过程中），最初和 nextImage（下一张图片）的 PIP 重合，慢慢变大
 
-对于大图来讲，每次重绘都是撑满了屏幕的，所以只计算剪裁图片的部分即可
+HIJK 是画布的最初状态，大小就是 nextImage 的 PIP
 
-剪裁的点最初在小图的左上角，最终在大图的左上角(也就是 0),ML 为剪裁的横坐标
+分析这个过程，整个过程图像都是撑满了画布的，所以`dx,dy,dWidth，dHeight`使用固定的值`(0,0,屏幕的宽,屏幕的高)`，只计算剪裁图片的部分即可
 
-假设 EF 是一段时间后的剪裁图片的宽度，所以有 `reduce = HI/EF`，所以有`EF = HI/reduce`，这个值随着 reduce 的缩小，变得越来越大，最终剪裁了整个图片
+先计算剪裁图片的横坐标 `sx`，最初在 PIP 的左上角，也就是`nextImage.pip.left`，最终在整张图的左上角(也就是 0)，也就是 ML 为剪裁的横坐标
 
-EH 的值一样
+因为 EF 从 HI 慢慢扩大的，变化率是 reduce，所以有 `reduce = HI/EF`，所以有`EF = HI/reduce`，这个值随着 reduce 的缩小，变得越来越大，最终达到了 AB，就结束了
 
-然后继续求坐标的变化，最开始剪裁的横坐标在小图的横坐标上，最后是 0，这里需要求 ML 的值
+接下来求 ML
 
 ```js
 ML = AR;
@@ -130,5 +137,13 @@ ML = AR;
 AR/AT=AE/AH=AS/AU
 AS=AB-EF
 AU=AB-HI
-所以ML=AR=AT*(AB-EF)/(AB-HI)
+所以ML=AR=AT*AS/AU=AT*(AB-EF)/(AB-HI)
+
+AT: nextImage.PIP.left
+AB: nextImage.width
+EF: nextImage.PIP.width / reduce
+HI: nextImage.PIP.width
+MH: 和AT相等
 ```
+
+同理可求`sy`,`sWidth`也就是 EF
