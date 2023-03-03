@@ -6,7 +6,8 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --ignore-path .gitignore",
+    "lint-fix": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -22,15 +23,15 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.4.4",
+    "@commitlint/cli": "^17.0.2",
     "@rushstack/eslint-patch": "^1.2.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",
-    "commitizen": "^4.3.0",
+    "commitizen": "^4.2.4",
     "commitlint-config-cz": "^0.13.3",
     "commitlint-config-git-commit-emoji": "^1.0.0",
     "cz-conventional-changelog": "^3.3.0",
-    "cz-customizable": "^7.0.0",
+    "cz-customizable": "^6.3.0",
     "eslint": "^8.34.0",
     "eslint-plugin-vue": "^9.9.0",
     "husky": "^8.0.3",

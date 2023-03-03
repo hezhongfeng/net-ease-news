@@ -1,20 +1,14 @@
 <template>
   <div class="picture-in-picture">
-    <canvas ref="canvas" :width="canvasWidth" :height="canvasHeight"> </canvas>
+    <canvas ref="canvas" v-bind:width="canvasWidth" :height="canvasHeight">
+    </canvas>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch } from 'vue';
 
-// // eslint-disable-next-line vue/no-setup-props-destructure
-// const { imagesData, factor, play } = defineProps([
-//   "imagesData",
-//   "factor",
-//   "play",
-// ]);
-
-const props = defineProps(["imagesData", "factor", "play"]);
+const props = defineProps(['imagesData', 'factor', 'play']);
 
 const canvas = ref();
 
@@ -49,7 +43,7 @@ const loadImages = async () => {
   }
 
   await Promise.all(promises);
-  console.log("图片加载完毕");
+  console.log('图片加载完毕');
 };
 
 // 设备的宽度
@@ -113,7 +107,7 @@ const step = () => {
 };
 
 const draw = () => {
-  console.log("drawing");
+  console.log('drawing');
 
   // 下一张图片
   const nextASAU =
@@ -171,7 +165,7 @@ const drawCover = () => {
 };
 
 onMounted(async () => {
-  ctx = canvas.value.getContext("2d");
+  ctx = canvas.value.getContext('2d');
   await loadImages();
   // 画布和图片准备好了，开始画图
   start();
