@@ -41,10 +41,10 @@ module.exports = {
       name: '⏪️ revert:   回退'
     }
   ],
+  scopes: [{ name: '文档' }, { name: '资源' }, { name: '表现' }],
   // 交互提示信息
   messages: {
-    type: '请选择提交类型(必填)',
-    customScope: '请输入文件修改范围(可选)',
+    scope: '修改范围',
     subject: '请简要描述提交(必填)',
     body: '请输入详细描述(可选)',
     breaking: '列出任何BREAKING CHANGES(可选)',

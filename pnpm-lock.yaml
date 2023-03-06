@@ -1,16 +1,16 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@commitlint/cli': ^17.0.2
+  '@commitlint/cli': ^17.4.4
   '@rushstack/eslint-patch': ^1.2.0
   '@vitejs/plugin-vue': ^4.0.0
   '@vue/eslint-config-prettier': ^7.1.0
   '@vueuse/core': ^9.13.0
-  commitizen: ^4.2.4
+  commitizen: ^4.3.0
   commitlint-config-cz: ^0.13.3
   commitlint-config-git-commit-emoji: ^1.0.0
   cz-conventional-changelog: ^3.3.0
-  cz-customizable: ^6.3.0
+  cz-customizable: ^7.0.0
   eslint: ^8.34.0
   eslint-plugin-vue: ^9.9.0
   husky: ^8.0.3
@@ -33,7 +33,7 @@ devDependencies:
   commitlint-config-cz: 0.13.3
   commitlint-config-git-commit-emoji: 1.0.0
   cz-conventional-changelog: 3.3.0
-  cz-customizable: 6.9.2
+  cz-customizable: 7.0.0
   eslint: 8.34.0
   eslint-plugin-vue: 9.9.0_eslint@8.34.0
   husky: 8.0.3
@@ -1158,8 +1158,8 @@ packages:
       - '@swc/wasm'
     dev: true
 
-  /cz-customizable/6.9.2:
-    resolution: {integrity: sha512-33Y0eHAp40sb7K346Shm07X+ZIckPKV8pBHUH5Lh2tI4fi0mjHkrYDrwQyJMS8095Ri+H+xkxOmblzQ64wT/Fg==}
+  /cz-customizable/7.0.0:
+    resolution: {integrity: sha512-pQKkGSm+8SY9VY/yeJqDOla1MjrGaG7WG4EYLLEV4VNctGO7WdzdGtWEr2ydKSkrpmTs7f8fmBksg/FaTrUAyw==}
     hasBin: true
     dependencies:
       editor: 1.0.0
