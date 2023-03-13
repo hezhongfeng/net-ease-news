@@ -1,7 +1,6 @@
 <template>
   <div class="picture-in-picture">
-    <canvas ref="canvas" v-bind:width="canvasWidth" :height="canvasHeight">
-    </canvas>
+    <canvas ref="canvas" v-bind:width="canvasWidth" :height="canvasHeight"> </canvas>
   </div>
 </template>
 
@@ -67,7 +66,7 @@ console.log(props.play);
 
 watch(
   () => props.play,
-  (newPlay) => {
+  newPlay => {
     if (newPlay) {
       step();
     } else {
@@ -75,7 +74,7 @@ watch(
     }
   },
   {
-    immediate: false,
+    immediate: false
   }
 );
 
@@ -110,9 +109,7 @@ const draw = () => {
   console.log('drawing');
 
   // 下一张图片
-  const nextASAU =
-    (nextImage.width - nextImage.innerImg.width / reduce) /
-    (nextImage.width - nextImage.innerImg.width); // AS/AU
+  const nextASAU = (nextImage.width - nextImage.innerImg.width / reduce) / (nextImage.width - nextImage.innerImg.width); // AS/AU
 
   ctx.drawImage(
     nextImage.img,
@@ -129,8 +126,7 @@ const draw = () => {
   // 当前图片，需要后画
   const currentASAU =
     (currentImage.width - currentImage.width * reduce) /
-    (currentImage.width -
-      (nextImage.innerImg.width * currentImage.width) / nextImage.width); // AS/AU
+    (currentImage.width - (nextImage.innerImg.width * currentImage.width) / nextImage.width); // AS/AU
   ctx.drawImage(
     currentImage.img,
     0,
@@ -149,8 +145,7 @@ const drawCover = () => {
   // 当前图片
   const currentASAU =
     (currentImage.width - currentImage.width * reduce) /
-    (currentImage.width -
-      (nextImage.innerImg.width * currentImage.width) / nextImage.width); // AS/AU
+    (currentImage.width - (nextImage.innerImg.width * currentImage.width) / nextImage.width); // AS/AU
   ctx.drawImage(
     currentImage.img,
     0,

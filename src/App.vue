@@ -20,7 +20,7 @@ const imagesData = [
   {
     src: Cover,
     width: '750',
-    height: '1206',
+    height: '1206'
   },
   {
     src: P1,
@@ -30,8 +30,8 @@ const imagesData = [
       width: '152',
       height: '244',
       left: '370',
-      top: '1068',
-    },
+      top: '1068'
+    }
   },
   {
     src: P2,
@@ -41,8 +41,8 @@ const imagesData = [
       width: '556',
       height: '894',
       left: '1251',
-      top: '1050',
-    },
+      top: '1050'
+    }
   },
   {
     src: P3,
@@ -52,8 +52,8 @@ const imagesData = [
       width: '166',
       height: '267',
       left: '114',
-      top: '897',
-    },
+      top: '897'
+    }
   },
   {
     src: P4,
@@ -63,9 +63,9 @@ const imagesData = [
       width: '194',
       height: '312',
       left: '85',
-      top: '1402',
-    },
-  },
+      top: '1402'
+    }
+  }
 ];
 
 const touchRef = ref(null);
@@ -83,6 +83,10 @@ console.log(play);
 .app {
   min-height: 100vh;
   .start {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     position: absolute;
     left: 45vw;
     bottom: 10vw;
