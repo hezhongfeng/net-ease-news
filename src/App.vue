@@ -26,7 +26,7 @@ const imagesData = [
     src: P1,
     width: '1875',
     height: '3015',
-    innerImg: {
+    pipImg: {
       width: '152',
       height: '244',
       left: '370',
@@ -37,7 +37,7 @@ const imagesData = [
     src: P2,
     width: '1875',
     height: '3015',
-    innerImg: {
+    pipImg: {
       width: '556',
       height: '894',
       left: '1251',
@@ -48,7 +48,7 @@ const imagesData = [
     src: P3,
     width: '1875',
     height: '3015',
-    innerImg: {
+    pipImg: {
       width: '166',
       height: '267',
       left: '114',
@@ -59,7 +59,7 @@ const imagesData = [
     src: P4,
     width: '1875',
     height: '3015',
-    innerImg: {
+    pipImg: {
       width: '194',
       height: '312',
       left: '85',
@@ -88,12 +88,11 @@ console.log(play);
     -ms-user-select: none;
     user-select: none;
     position: absolute;
-    left: 45vw;
-    bottom: 10vw;
+    left: 42.5vw;
+    bottom: 5vw;
     z-index: 2;
     width: 15vw;
     height: 14vw;
-    user-select: none;
     background: url(./assets/images/sprite_v2.png) no-repeat;
     background-position: -41.4vw -79.45vw;
     background-size: 770%;

@@ -97,7 +97,7 @@ const stop = () => {
 
 const step = () => {
   // 缩小到PIP的大小和位置
-  if (reduce < nextImage.innerImg.width / nextImage.width) {
+  if (reduce < nextImage.pipImg.width / nextImage.width) {
     nextStep();
   } else {
     draw();
@@ -109,14 +109,14 @@ const draw = () => {
   console.log('drawing');
 
   // 下一张图片
-  const nextASAU = (nextImage.width - nextImage.innerImg.width / reduce) / (nextImage.width - nextImage.innerImg.width); // AS/AU
+  const nextASAU = (nextImage.width - nextImage.pipImg.width / reduce) / (nextImage.width - nextImage.pipImg.width); // AS/AU
 
   ctx.drawImage(
     nextImage.img,
-    nextImage.innerImg.left * nextASAU, // AT*AS/AU
-    nextImage.innerImg.top * nextASAU, // TH*AS/AU
-    nextImage.innerImg.width / reduce, // EF
-    nextImage.innerImg.height / reduce, // RH
+    nextImage.pipImg.left * nextASAU, // AT*AS/AU
+    nextImage.pipImg.top * nextASAU, // TH*AS/AU
+    nextImage.pipImg.width / reduce, // EF
+    nextImage.pipImg.height / reduce, // RH
     0,
     0,
     canvasWidth,
@@ -126,15 +126,15 @@ const draw = () => {
   // 当前图片，需要后画
   const currentASAU =
     (currentImage.width - currentImage.width * reduce) /
-    (currentImage.width - (nextImage.innerImg.width * currentImage.width) / nextImage.width); // AS/AU
+    (currentImage.width - (nextImage.pipImg.width * currentImage.width) / nextImage.width); // AS/AU
   ctx.drawImage(
     currentImage.img,
     0,
     0,
     currentImage.width,
     currentImage.height,
-    (nextImage.innerImg.left * currentASAU * canvasWidth) / nextImage.width, // 这里需要换算成实际的canvas的大小
-    (nextImage.innerImg.top * currentASAU * canvasHeight) / nextImage.height,
+    (nextImage.pipImg.left * currentASAU * canvasWidth) / nextImage.width, // 这里需要换算成实际的canvas的大小
+    (nextImage.pipImg.top * currentASAU * canvasHeight) / nextImage.height,
     canvasWidth * reduce,
     canvasHeight * reduce
   );
@@ -145,15 +145,15 @@ const drawCover = () => {
   // 当前图片
   const currentASAU =
     (currentImage.width - currentImage.width * reduce) /
-    (currentImage.width - (nextImage.innerImg.width * currentImage.width) / nextImage.width); // AS/AU
+    (currentImage.width - (nextImage.pipImg.width * currentImage.width) / nextImage.width); // AS/AU
   ctx.drawImage(
     currentImage.img,
     0,
     0,
     currentImage.width,
     currentImage.height,
-    (nextImage.innerImg.left * currentASAU * canvasWidth) / nextImage.width, // 这里需要换算成实际的canvas的大小
-    (nextImage.innerImg.top * currentASAU * canvasHeight) / nextImage.height,
+    (nextImage.pipImg.left * currentASAU * canvasWidth) / nextImage.width, // 这里需要换算成实际的canvas的大小
+    (nextImage.pipImg.top * currentASAU * canvasHeight) / nextImage.height,
     canvasWidth * reduce,
     canvasHeight * reduce
   );
