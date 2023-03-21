@@ -4,7 +4,7 @@
 
 ![扫码预览](https://gitee.com/hezf/assets/raw/master/202303211001699.png)
 
-![PIP](https://gitee.com/hezf/assets/raw/master/202303210957418.gif)
+![PIP](https://gitee.com/hezf/assets/raw/master/202303211106576.gif)
 
 ## 绘画过程分析
 
