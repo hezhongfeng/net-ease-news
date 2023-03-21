@@ -2,15 +2,15 @@
 
 实现网易新闻的图中图（PIP）《二零一七年娱乐圈画传》，扫码预览
 
-![扫码预览](https://cdn.jsdelivr.net/gh/hezhongfeng/images/202303171551033.png)
+![扫码预览](https://gitee.com/hezf/assets/raw/master/202303211001699.png)
 
-![PIP](https://cdn.jsdelivr.net/gh/hezhongfeng/images/202302280925668.gif)
+![PIP](https://gitee.com/hezf/assets/raw/master/202303210957418.gif)
 
 ## 绘画过程分析
 
 上面的动图，如何实现？直观上感觉像是一个大图，但仔细想想肯定不对，那得多大的图~看了下网页结构，用了一个 canvas 来显示，应该就是把图像一帧一帧的画到 canvas 上面，比如 1 秒画 60 帧，就能达到顺滑的收缩效果。
 
-![封面](https://cdn.jsdelivr.net/gh/hezhongfeng/images/202303131448540.svg)
+![封面](https://gitee.com/hezf/assets/raw/master/202303211003404.svg)
 
 绘制的时候，同时存在两张图，最初的时候图 1 和屏幕重合，图 2 在屏幕外边。随着时间的推移，图 2 和图 1 一起慢慢缩小，最终图 2 和屏幕重合，图 1 收缩到了图 2 的 PIP 位置。这时候去掉图 1，添加图 3，图 3 和图 2 一起收缩，然后再添加图 4，一直到最后一张图。
 
@@ -82,13 +82,13 @@
 
 ### 当前图片
 
-![当前图片](https://cdn.jsdelivr.net/gh/hezhongfeng/images/202302280853151.gif)
+![当前图片](https://gitee.com/hezf/assets/raw/master/202303211005870.gif)
 
 从封面开始，当前图片此时撑满整个屏幕，随着时间的推移，逐渐缩小和移动，最终缩小移动到下一张图片的 PIP 的大小和位置
 
 这一过程中，整个图片都在画布中，而且是从图片的左上角开始剪裁的，结合上面的`drawImage`函数的参数，那么`sx`、`sy`、`sWidth`和`sHeight`这 4 个参数就是`0,0,当前图片的宽度,当前图片的高度`，也就是把整个图片都剪裁下来了，所以只需要计算当前图片在画布中的位置和长宽
 
-![image](https://cdn.jsdelivr.net/gh/hezhongfeng/images/202302271546038.svg)
+![image](https://gitee.com/hezf/assets/raw/master/202303211006120.svg)
 
 观察上图，我们假设 ABCD 是手机屏幕，也就是当前图片最初的大小和位置
 
@@ -122,11 +122,11 @@ AT: 下一张图片的PIP的left
 
 ### 下一张图片
 
-![图2](https://cdn.jsdelivr.net/gh/hezhongfeng/images/202303131447404.gif)
+![图2](https://gitee.com/hezf/assets/raw/master/202303211034797.gif)
 
 观察上面的动图，最初 nextImage（下一张图片）的 PIP 占满了画布，然后画布慢慢扩大，最后是整个 nextImage 占满了画布
 
-![image](https://cdn.jsdelivr.net/gh/hezhongfeng/images/202302271546038.svg)
+![image](https://gitee.com/hezf/assets/raw/master/202303211006120.svg)
 
 还是一样的图这里假设：ABCD 是 nextImage
 
