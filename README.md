@@ -1,12 +1,12 @@
 # netease-news
 
-实现网易新闻的图中图（PIP）《二零一七年娱乐圈画传》
+实现网易新闻的图中图（PIP）《二零一七年娱乐圈画传》[查看源码](https://github.com/hezhongfeng/net-ease-news)
 
 ![pip.gif](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/57b74d9eaa9f4996b284ccf5a215140c~tplv-k3u1fbpfcp-watermark.image?)
 
-扫码[预览](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0bf11bbfd31145d6a91054a7077d78b7~tplv-k3u1fbpfcp-watermark.image)
+[点击](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0bf11bbfd31145d6a91054a7077d78b7~tplv-k3u1fbpfcp-watermark.image)或者扫码预览:
 
-![扫码预览](https://gitee.com/hezf/assets/raw/master/202303211001699.png)
+![扫码预览](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0ac8c366980d4c35a733f7ca96844ce2~tplv-k3u1fbpfcp-zoom-1.image)
 
 ## 绘画过程分析
 
@@ -186,3 +186,7 @@ background: url(./assets/images/sprite_v2.png) no-repeat;
 background-position: -41.4vw -79.45vw;
 background-size: 770%;
 ```
+
+## 感谢
+
+感谢[这篇文章](https://juejin.cn/post/6844903725073432584)的指引
